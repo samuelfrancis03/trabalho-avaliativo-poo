@@ -1,10 +1,13 @@
 package br.com.cotemig.trabalho.atividade1;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubMenuAtividade1 {
 
     public static void SubMenuAluno() {
+        List<Aluno> listaDeAlunos = new ArrayList<>();
         int loop = 1;
 
         while (loop == 1) {
@@ -20,16 +23,16 @@ public class SubMenuAtividade1 {
                     loop = 0;
                     break;
                 case 1:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Gerenciar");
+                    Aluno.Cadastro(listaDeAlunos);
                     break;
                 case 2:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Consultar");
+                    Aluno.Consultar(listaDeAlunos);
                     break;
                 case 3:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Remover");
+                    Aluno.Remover(listaDeAlunos);
                     break;
                 case 4:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Atualizar");
+                    Aluno.Atulizar(listaDeAlunos);
                     break;
 
                 default:
@@ -40,6 +43,7 @@ public class SubMenuAtividade1 {
     }
 
         public static void SubMenuDisciplina() {
+            List<Disciplina> listaDeDisciplinas = new ArrayList<>();
             int loop = 1;
 
             while (loop == 1) {
@@ -55,16 +59,16 @@ public class SubMenuAtividade1 {
                         loop = 0;
                         break;
                     case 1:
-                        JOptionPane.showMessageDialog(null, "Acessou Menu Gerenciar");
+                        Disciplina.Cadastro(listaDeDisciplinas);
                         break;
                     case 2:
-                        JOptionPane.showMessageDialog(null, "Acessou Menu Consultar");
+                        Disciplina.Consultar(listaDeDisciplinas);
                         break;
                     case 3:
-                        JOptionPane.showMessageDialog(null, "Acessou Menu Remover");
+                        Disciplina.Remover(listaDeDisciplinas);
                         break;
                     case 4:
-                        JOptionPane.showMessageDialog(null, "Acessou Menu Atualizar");
+                        Disciplina.Atulizar(listaDeDisciplinas);
                         break;
 
                     default:
@@ -77,14 +81,15 @@ public class SubMenuAtividade1 {
         }
 
     public static void SubMenuCurso() {
+        List<Curso> listaDeCursos = new ArrayList<>();
         int loop = 1;
 
         while (loop == 1) {
             int opcaoSubMenuCurso = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite um serviço para acessar: " +
-                    "\n1 - Cadastrar Disciplina" +
-                    "\n2 - Consultar Disciplina" +
-                    "\n3 - Remover Disciplina" +
-                    "\n4 - Atualizar Disciplina" +
+                    "\n1 - Cadastrar Curso" +
+                    "\n2 - Consultar Curso" +
+                    "\n3 - Remover Curso" +
+                    "\n4 - Atualizar Curso" +
                     "\n0 - Menu Principal"));
 
             switch (opcaoSubMenuCurso) {
@@ -92,16 +97,16 @@ public class SubMenuAtividade1 {
                     loop = 0;
                     break;
                 case 1:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Gerenciar");
+                    Curso.Cadastro(listaDeCursos);
                     break;
                 case 2:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Consultar");
+                    Curso.Consultar(listaDeCursos);
                     break;
                 case 3:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Remover");
+                    Curso.Remover(listaDeCursos);
                     break;
                 case 4:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Atualizar");
+                    Curso.Atulizar(listaDeCursos);
                     break;
 
                 default:
