@@ -1,10 +1,17 @@
 package br.com.cotemig.trabalho.atividade2;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubMenuAtividade2 {
 
+    static List<Cliente> listaDeCliente = new ArrayList<>();
+    static List<Conta> listaDeConta = new ArrayList<>();
     public static void SubMenuCliente() {
+
+
+
         int loop = 1;
 
         while (loop == 1) {
@@ -20,27 +27,35 @@ public class SubMenuAtividade2 {
                     loop = 0;
                     break;
                 case 1:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Gerenciar");
+                    Cliente.Create(listaDeCliente);
                     break;
                 case 2:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Consultar");
+
+                   Cliente.Consultar(listaDeCliente);
                     break;
                 case 3:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Remover");
+                    Cliente.Remover(listaDeCliente);
                     break;
                 case 4:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Atualizar");
+                   Cliente.Atulizar(listaDeCliente);
                     break;
 
                 default:
                     JOptionPane.showMessageDialog(null, "Opção inválida. Tente novamente!");
 
             }
+
         }
+
+
     }
+
+
+
 
     public static void SubMenuConta() {
         int loop = 1;
+
 
         while (loop == 1) {
             int opcaoSubMenuConta = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite um serviço para acessar: " +
@@ -56,19 +71,27 @@ public class SubMenuAtividade2 {
                     loop = 0;
                     break;
                 case 1:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Cadastrar");
+                    Conta.Create(listaDeConta,listaDeCliente);
                     break;
                 case 2:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Sacar");
+                    Cliente cliente = Cliente.consultarCliente(listaDeCliente);
+                    cliente.conta.sacar();
                     break;
                 case 3:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Depositar");
+                    Cliente cliente2 = Cliente.consultarCliente(listaDeCliente);
+                    cliente2.conta.depositar();
+
                     break;
                 case 4:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Verificar");
+                    Cliente cliente3 = Cliente.consultarCliente(listaDeCliente);
+                    cliente3.conta.saldoAtual();
                     break;
                 case 5:
-                    JOptionPane.showMessageDialog(null, "Acessou Menu Transferir");
+                    Cliente cliente4 = Cliente.pix(listaDeCliente);
+                    cliente4.conta.transferir1();
+                    Cliente cliente5 = Cliente.pix2(listaDeCliente);
+                    cliente5.conta.transferir2();
+
                     break;
 
                 default:

@@ -6,8 +6,12 @@ import java.util.List;
 
 public class SubMenuAtividade1 {
 
+    static List<Aluno> listaDeAlunos = new ArrayList<>();
+    static List<Disciplina> listaDeDisciplinas = new ArrayList<>();
+    static List<Curso> listaDeCursos = new ArrayList<>();
+
     public static void SubMenuAluno() {
-        List<Aluno> listaDeAlunos = new ArrayList<>();
+
         int loop = 1;
 
         while (loop == 1) {
@@ -23,10 +27,10 @@ public class SubMenuAtividade1 {
                     loop = 0;
                     break;
                 case 1:
-                    Aluno.Cadastro(listaDeAlunos);
+                    Aluno.Cadastro(listaDeAlunos, listaDeCursos);
                     break;
                 case 2:
-                    Aluno.Consultar(listaDeAlunos);
+                    Aluno.Consultar(listaDeAlunos, listaDeCursos);
                     break;
                 case 3:
                     Aluno.Remover(listaDeAlunos);
@@ -43,7 +47,7 @@ public class SubMenuAtividade1 {
     }
 
         public static void SubMenuDisciplina() {
-            List<Disciplina> listaDeDisciplinas = new ArrayList<>();
+
             int loop = 1;
 
             while (loop == 1) {
@@ -81,7 +85,7 @@ public class SubMenuAtividade1 {
         }
 
     public static void SubMenuCurso() {
-        List<Curso> listaDeCursos = new ArrayList<>();
+
         int loop = 1;
 
         while (loop == 1) {
@@ -97,7 +101,7 @@ public class SubMenuAtividade1 {
                     loop = 0;
                     break;
                 case 1:
-                    Curso.Cadastro(listaDeCursos);
+                    Curso.Cadastro(listaDeCursos,listaDeDisciplinas);
                     break;
                 case 2:
                     Curso.Consultar(listaDeCursos);

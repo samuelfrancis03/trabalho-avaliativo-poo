@@ -1,5 +1,8 @@
 package br.com.cotemig.trabalho.atividade1;
 
+import jdk.nashorn.internal.ir.WhileNode;
+import jdk.nashorn.internal.scripts.JO;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +14,7 @@ public class Curso {
     private String nome;
     private  double valor;
 
+    List<Disciplina> cursoDisciplina;
     List<Curso> cursos;
 
     public Curso(int id, String instituicao, String nome, double valor) {
@@ -18,6 +22,15 @@ public class Curso {
         this.instituicao = instituicao;
         this.nome = nome;
         this.valor = valor;
+        this.cursoDisciplina = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Curso{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                '}';
     }
 
     public int getId() {
@@ -60,15 +73,36 @@ public class Curso {
         this.cursos = cursos;
     }
 
-    public static void Cadastro(List<Curso> listaDeCursos){
+    public List<Disciplina> getCursoDisciplina() {
+        return cursoDisciplina;
+    }
+
+    public void setCursoDisciplina(List<Disciplina> cursoDisciplina) {
+        this.cursoDisciplina = cursoDisciplina;
+    }
+
+    public static void Cadastro(List<Curso> listaDeCursos, List<Disciplina> listaDeDisciplinas){
         int id = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a ID do Curso: "));
         String instituicao = JOptionPane.showInputDialog(null, "Informe a Instituição do Curso: ");
         String nome = JOptionPane.showInputDialog(null, "Informe o Nome do Curso: ");
         double valor = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe o Valor do Curso: "));
+        int diciplinas = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o ID da Disciplinas que deseja incluir no Curso: \n(0 - Sair)"));
+        Disciplina aux;
 
         Curso cadastroCurso = new Curso(id, instituicao, nome, valor);
 
-        listaDeCursos.add(cadastroCurso);
+       while (diciplinas != 0){
+           for (Disciplina d: listaDeDisciplinas) {
+               if (d.getId() == diciplinas){
+                   aux = d;
+                   cadastroCurso.cursoDisciplina.add(d);
+               }
+           }
+
+           diciplinas = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o ID da Disciplinas que deseja incluir no Curso: \n(0 - Sair)"));
+       }
+
+       listaDeCursos.add(cadastroCurso);
     }
 
     public  static void Consultar(List<Curso> listaDeCursos){
@@ -76,18 +110,38 @@ public class Curso {
 
         }
 
+
         int busca = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o ID do Curso: "));
         Curso pegaId = listaDeCursos.stream().filter(c -> c.id == busca).findFirst().orElse(null);
+        List<Disciplina> pegaDisciplina = pegaId.cursoDisciplina;
 
         if (pegaId != null) {
+
+            String retornaDiciplina = "";
+            for (Disciplina d: pegaDisciplina) {
+
+                retornaDiciplina += "\nID: " + d.getId() +
+                                    "\nNome: " + d.getNome() +
+                                    "\nCarga Horária" + d.getCargaHoraria() +
+                                    "\nNota: " + d.getNota() +
+                                    "\n ------------------ \n";
+
+            }
+
             JOptionPane.showMessageDialog(null, "ID: " + pegaId.id +
                     "\nInstituição: " + pegaId.instituicao +
                     "\nNome: " + pegaId.nome +
-                    "\nValor: " + pegaId.valor);
+                    "\nValor: " + pegaId.valor +
+                    "\n--------------------------" +
+                    "\nDisciplinas\n " +
+                    retornaDiciplina);
 
         } else {
             JOptionPane.showMessageDialog(null, "ID não encontrado. Tente novamente!");
         }
+
+
+
     }
 
     public static void Remover(List<Curso> listaDeCursos){

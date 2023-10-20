@@ -10,14 +10,19 @@ public class Aluno {
     private  String nome;
     private  int telefone;
     private String email;
+
+    private  int cursoAluno;
+
+    private String teste;
     private List <Aluno> alunos;
 
-    public Aluno(int matricula, int cpf, String nome, int telefone, String email) {
+    public Aluno(int matricula, int cpf, String nome, int telefone, String email, int cursoAluno) {
         this.matricula = matricula;
         this.cpf = cpf;
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
+        this.cursoAluno = cursoAluno;
 
     }
 
@@ -69,32 +74,96 @@ public class Aluno {
         this.alunos = alunos;
     }
 
-    public static void Cadastro(List<Aluno> listaDeAlunos){
+    public String getTeste() {
+        return teste;
+    }
+
+    public void setTeste(String teste) {
+        this.teste = teste;
+    }
+
+    public int getCursoAluno() {
+        return cursoAluno;
+    }
+
+    public void setCursoAluno(int cursoAluno) {
+        this.cursoAluno = cursoAluno;
+    }
+
+    public static void Cadastro(List<Aluno> listaDeAlunos, List<Curso> listaDeCursos){
         int matricula = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a matricula do aluno: "));
         int cpf = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o CPF do aluno: "));;
         String nome = JOptionPane.showInputDialog(null, "Informe o nome do aluno: ");
         int telefone = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o telefone do aluno: "));;
         String email = JOptionPane.showInputDialog(null, "Informe o email do aluno: ");
 
-        Aluno cadastroAluno = new Aluno(matricula, cpf, nome, telefone, email);
+        String retornaCurso = "";
+        for (Curso c: listaDeCursos){
+            retornaCurso += "\nID: " + c.getId() +
+                            "\nInstituição: " + c.getInstituicao() +
+                            "\nNome: " + c.getNome() +
+                            "\nValor: " + c.getValor() +
+                            "\n------------------\n";
 
-        listaDeAlunos.add(cadastroAluno);
+        }
+
+        int cursoAluno = Integer.parseInt(JOptionPane.showInputDialog(null, "Selecione os cursos disponiveis: \n" + retornaCurso ));
+
+
+        for (Curso c: listaDeCursos) {
+
+            if (c.getId() == cursoAluno) {
+                Aluno cadastroAluno = new Aluno(matricula, cpf, nome, telefone, email, cursoAluno);
+                listaDeAlunos.add(cadastroAluno);
+
+
+            } else {
+                JOptionPane.showMessageDialog(null,"Curso não encontrado");
+            }
+
+
+        }
+
     }
 
-    public  static void Consultar(List<Aluno> listaDeAlunos){
+    public  static void Consultar(List<Aluno> listaDeAlunos, List<Curso> listaDeCursos){
         for (Aluno a: listaDeAlunos) {
 
         }
 
         int busca = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a matricula do aluno: "));
         Aluno pegaMatricula = listaDeAlunos.stream().filter(a -> a.matricula == busca).findFirst().orElse(null);
+        Curso curso = listaDeCursos.stream().filter(a -> a.getId() == pegaMatricula.cursoAluno).findFirst().orElse(null);
+        List<Disciplina> pegaDisciplina = curso.cursoDisciplina;
 
         if (pegaMatricula != null) {
-            JOptionPane.showMessageDialog(null, "Matricula: " + pegaMatricula.matricula +
+
+            String retornaDiciplina = "";
+            for (Disciplina d: pegaDisciplina) {
+
+                retornaDiciplina += "\nID: " + d.getId() +
+                        "\nNome: " + d.getNome() +
+                        "\nCarga Horária" + d.getCargaHoraria() +
+                        "\nNota: " + d.getNota() +
+                        "\n ------------------ \n";
+
+            }
+
+            JOptionPane.showMessageDialog(null, "Infomações do Aluno: " +
+                    "\nMatricula: " + pegaMatricula.matricula +
                     "\nCPF: " + pegaMatricula.cpf +
                     "\nNome: " + pegaMatricula.nome +
                     "\nTelefone: " + pegaMatricula.telefone +
-                    "\nEmail: " + pegaMatricula.email);
+                    "\nEmail: " + pegaMatricula.email +
+                    "\n---------------------" +
+                    "\n Curso" +
+                    "\nID: " +curso.getId() +
+                    "\nInstituição: " + curso.getInstituicao() +
+                    "\nNome: " + curso.getNome() +
+                    "\nValor: " + curso.getValor() +
+                    "\n--------------------------" +
+                    "\nDisciplinas\n " +
+                    retornaDiciplina);
 
         } else {
             JOptionPane.showMessageDialog(null, "Matricula não encontrado. Tente novamente!");
